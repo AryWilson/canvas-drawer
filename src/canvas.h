@@ -13,6 +13,17 @@
 
 namespace agl
 {
+
+   /**
+    * @brief Holder for a point
+    * 
+    */
+   struct Point {
+      int x;
+      int y;
+      struct Pixel col;
+   };
+
    enum PrimitiveType {UNDEFINED, LINES, TRIANGLES};
    class Canvas
    {
@@ -45,9 +56,17 @@ namespace agl
 
       // Fill the canvas with the given background color
       void background(unsigned char r, unsigned char g, unsigned char b);
+      void drawline(struct Point a, struct Point b);
+      void drawline_low (struct Point a, struct Point b);
+      void drawline_high (struct Point a, struct Point b);
+      void triangle(struct Point a, struct Point b, struct Point c);
 
    private:
       Image _canvas;
+      struct Pixel current_col;
+      PrimitiveType current_type;
+      std::vector<struct Point> vertices;
+      bool fill;
    };
 }
 

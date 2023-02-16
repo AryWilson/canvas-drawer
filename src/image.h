@@ -1,9 +1,4 @@
-/*-----------------------------------------------
- * Author:
- * Date:
- * Description:
- ----------------------------------------------*/
-
+// Copyright 2021, Aline Normoyle, alinen
 
 #ifndef AGL_IMAGE_H_
 #define AGL_IMAGE_H_
@@ -23,6 +18,7 @@ struct Pixel {
     unsigned char b;
 };
 
+
 /**
  * @brief Implements loading, modifying, and saving RGB images
  */
@@ -33,7 +29,9 @@ class Image {
   Image(const Image& orig);
   Image& operator=(const Image& orig);
 
+
   virtual ~Image();
+  void clean();
 
   /** 
    * @brief Load the given filename 
@@ -169,6 +167,30 @@ class Image {
   // Assumes that the two images are the same size
   Image darkest(const Image& other) const;
 
+  // only display the specified rgb color of the image
+  // default returns grayscale
+  Image monochrome(int opt) const;
+
+  // makes the image more vibrant by the specified ammount
+  Image saturate(unsigned char ammount) const;
+  // makes the darkest values darker and the lightest values lighter
+  Image contrast(unsigned char ammount) const;
+
+  // applies red-teal filter
+  Image redTeal(unsigned char ammount) const;
+
+  // returns the average va;ue [0,255] of a given pixel
+  // optional greyscale flag
+  // unsigned char average(struct Pixel rgb, bool greyscale = false);
+
+  // Sobel Edge Detector
+  Image edgeFinder()const;  
+
+  // box blur
+  Image blur() const;
+
+
+
   // Apply gamma correction
   Image gammaCorrect(float gamma) const;
 
@@ -194,7 +216,10 @@ class Image {
   void fill(const Pixel& c);
 
  private:
-   // todo
+  int w,h,ch = 0;
+  struct Pixel * _data = nullptr;
+  bool stb_load = false;
+
 };
 }  // namespace agl
 #endif  // AGL_IMAGE_H_
