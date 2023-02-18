@@ -1,6 +1,7 @@
 #include "canvas.h"
 #include <cassert>
 
+
 using namespace std;
 using namespace agl;
 
@@ -45,6 +46,11 @@ void Canvas::vertex(int x, int y)
    // sepaate for triangle and line?
    // just add to vetex struct, (delete struct when appropriate num of points?)
    vertices.push_back(Point{x,y,current_col});
+   if (vertices.size() == 1 && current_type == POINTS){
+      struct Point a = vertices.back();
+      vertices.pop_back();
+      _canvas.set(a.x,a.y,a.col);
+   }
    if (vertices.size() == 3 && current_type == TRIANGLES){
      
       struct Point c = vertices.back();
@@ -85,8 +91,8 @@ void Canvas::color(unsigned char r, unsigned char g, unsigned char b)
 void Canvas::background(unsigned char r, unsigned char g, unsigned char b)
 {
    struct Pixel col = Pixel{r,g,b};
-   for (int i = 0; i< _canvas.height(); i++){
-      for (int j = 0; j< _canvas.width(); j++){
+   for (int i = 0; i< _canvas.width(); i++){
+      for (int j = 0; j< _canvas.height(); j++){
          _canvas.set(i,j,col);
       }
    }
@@ -142,7 +148,7 @@ void Canvas::drawline_low(struct Point a, struct Point b) {
    }  
    int F = 2*H - W ;
    for (int x = a.x; x <= b.x; x++) {
-      if (x>=0 && y>= 0 && x<_canvas.width() && y<_canvas.height()){
+      if (x>=0 && y>= 0 && x<=_canvas.width() && y<=_canvas.height()){
          float per = (b.x-x)/((float)(b.x-a.x));
          unsigned char r = per*(a.col.r) + (1-per)*(b.col.r);
          unsigned char g = per*(a.col.g) + (1-per)*(b.col.g);
@@ -168,7 +174,7 @@ void Canvas::drawline_high(struct Point a, struct Point b) {
    }  
    int F = 2*W -H ;
    for (int y = a.y; y<= b.y; y++) {
-      if (x>=0 && y>= 0 && y<_canvas.width() && x<_canvas.height()){
+      if (x>=0 && y>= 0 && x<=_canvas.width() && y<=_canvas.height()){
          float per = (b.y-y)/((float)(b.y-a.y));
          unsigned char r = per*(a.col.r) + (1-per)*(b.col.r);
          unsigned char g = per*(a.col.g) + (1-per)*(b.col.g);
@@ -225,6 +231,51 @@ void Canvas::triangle(struct Point a, struct Point b, struct Point c){
 
 }
 
+
+void Canvas::star(int cx, int cy, int size){
+   float delta = (4*acos(0.0f))/5.0f;
+   float start =  rand() % 4*acos(0.0f);
+   for(int i = 0; i<=5;i++){
+      
+      struct Point a = Point{cx + (int) floor(size*(cos(start + i*delta))), cy + (int) floor(size*(sin(start + i*delta))),current_col};   
+      struct Point b = Point{cx + (int) floor(size*(cos(start + (i+1)*delta))), cy + (int) floor(size*(sin(start + (i+1)*delta))),current_col};   
+
+      triangle(a,b,Point{cx,cy,current_col});
+      struct Point c = Point{cx + (int) floor(2*size*(cos(start + i*delta + delta/2.0f))), cy + (int) floor(2*size*(sin(start + i*delta + delta/2.0f))),current_col};  
+      triangle(a,b,c);
+   }
+}
+void Canvas::circle(int cx, int cy, int r){
+   // rose(cx-r,cy,2*r,1,1);
+   ngon(cx,cy,r,r);
+}
+void Canvas::rose(int cx, int cy, int r, int n, int d){
+   float m = max(n,d);
+   float delta = 1/((m)*(4)*acos(0.0f));
+   float k = n/((float) d);
+   for(float theta = 0; theta <= (m)*(4)*acos(0.0f); theta += delta){
+      struct Point a = Point{cx+(int) floor(r*cos(k*theta)*cos(theta)),cy+(int) floor(r*cos(k*theta)*sin(theta)),current_col};
+      struct Point b = Point{cx+(int) floor(r*cos(k*(theta + delta))*cos(theta + delta)),cy+(int) floor(r*cos(k*(theta + delta))*sin(theta + delta)),current_col};
+      drawline(a,b);
+   }
+}
+
+void Canvas::ngon(int cx, int cy, int r, int sides){
+   float delta = ((2)*acos(0.0f))/sides;
+   int _cx = cx - r;
+   int _r = 2*r;
+   for(float theta = 0; theta <= (2)*acos(0.0f); theta += delta){
+      struct Point a = Point{_cx+(int) floor(_r*cos(theta)*cos(theta)),cy+(int) floor(_r*cos(theta)*sin(theta)),current_col};
+      struct Point b = Point{_cx+(int) floor(_r*cos((theta + delta))*cos(theta + delta)),cy+(int) floor(_r*cos((theta + delta))*sin(theta + delta)),current_col};
+      if(fill){
+         triangle(Point{cx,cy,current_col},a,b);
+      }else{
+         drawline(a,b);
+      }
+   }
+}
+
+void Canvas::setFill(bool f){fill = f;}
 
 
 

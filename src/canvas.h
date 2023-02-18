@@ -10,6 +10,7 @@
 #include <string>
 #include <vector>
 #include "image.h"
+#include <math.h>
 
 namespace agl
 {
@@ -24,7 +25,7 @@ namespace agl
       struct Pixel col;
    };
 
-   enum PrimitiveType {UNDEFINED, LINES, TRIANGLES};
+   enum PrimitiveType {UNDEFINED, POINTS, LINES, TRIANGLES};
    class Canvas
    {
    public:
@@ -60,6 +61,12 @@ namespace agl
       void drawline_low (struct Point a, struct Point b);
       void drawline_high (struct Point a, struct Point b);
       void triangle(struct Point a, struct Point b, struct Point c);
+      void star(int cx, int cy, int size);   
+      void circle(int cx, int cy, int r);
+      void rose(int cx, int cy, int r, int n, int d);
+      void ngon(int cx, int cy, int r, int sides);
+      void setFill(bool f);
+
 
    private:
       Image _canvas;
