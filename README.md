@@ -55,4 +55,4 @@ You can create regular polygons and stars using the methods ngon() and star(), r
 ## Results
 ![Alt text](/images/honey3.png?raw=true)
 ![Alt text](/images/save.png?raw=true)
-![Alt text](/images/stars1.png?raw=true)
+![Alt text](/images/stars.png?raw=true)
