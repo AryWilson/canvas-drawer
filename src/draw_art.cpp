@@ -7,17 +7,12 @@ int main(int argc, char** argv)
 {
    Canvas drawer(640, 380);
    drawer.background(0,0,0);
-   drawer.color(100,20,200);
-   drawer.ngon(300,200,100,-3);
-   drawer.save("something.png");
-   return 0;
-   drawer.begin(TRIANGLES);
 
-   ///
-   drawer.color(20, 0, 20);
+   drawer.begin(TRIANGLES);
+   drawer.color(25, 0, 25);
    drawer.vertex(640, 380);
 
-   drawer.color(0, 0, 30);
+   drawer.color(0, 0, 40);
    drawer.vertex(0, 380);
    
    drawer.color(0,0,0);
@@ -28,10 +23,10 @@ int main(int argc, char** argv)
    drawer.color(0, 0, 0);
    drawer.vertex(0, 380);
 
-   drawer.color(20, 0, 20);
+   drawer.color(25, 0, 25);
    drawer.vertex(640, 0);
 
-   drawer.color(0, 0, 30);
+   drawer.color(0, 0, 40);
    drawer.vertex(0, 0);
    drawer.end();
 
@@ -52,10 +47,10 @@ int main(int argc, char** argv)
       drawer.color(2*r,2*g,2*b);
       drawer.rose(x,y, 2 + (rand()%5),n,d);
       
-      drawer.color(220,220,220);
+      drawer.color(230,230,230);
       drawer.vertex(x,y);
 
-      drawer.color(90,90,30);
+      drawer.color(110,100,30);
       drawer.star(rand()%640,rand()%380,rand()%4);
    }
    for(int i=0;i<250;i++){
