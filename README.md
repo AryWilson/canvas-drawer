@@ -2,7 +2,7 @@
 
 Implements a simple drawing api
 
-[Alt text](./images/triangle.png?raw=true)
+[Alt text](https://github.com/AryWilson/canvas-drawer/tree/main/images/triangle.png?raw=true)
 
 ## How to build
 
@@ -48,6 +48,6 @@ canvas-drawer/build $ ../bin/draw_art
 This project supports UNDEFINED, POINTS, LINES, and TRIANGLES as primitives accepted by the begin method for drawing by indicating each vertex.
 
 ## Results
-[Alt text](./images/honey3.png?raw=true)
-[Alt text](./images/save.png?raw=true)
-[Alt text](./images/stars1.png?raw=true)
+[Alt text](https://github.com/AryWilson/canvas-drawer/tree/main/images/honey3.png?raw=true)
+[Alt text](https://github.com/AryWilson/canvas-drawer/tree/main/images/save.png?raw=true)
+[Alt text](https://github.com/AryWilson/canvas-drawer/tree/main/images/stars1.png?raw=true)
