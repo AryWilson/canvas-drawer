@@ -2,7 +2,7 @@
 
 Implements a simple drawing api
 
-![Alt text](https://github.com/AryWilson/canvas-drawer/tree/main/images/triangle.png?raw=true)
+![Alt text](/images/triangle.png?raw=true)
 
 ## How to build
 
