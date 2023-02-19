@@ -2,7 +2,7 @@
 
 Implements a simple drawing api
 
-[Alt text](https://github.com/AryWilson/canvas-drawer/tree/main/images/triangle.png?raw=true)
+![Alt text](/images/triangle.png?raw=true)
 
 ## How to build
 
@@ -53,6 +53,6 @@ You can create points, lines, or triangles using the vertex() method. Lines and 
 You can create regular polygons and stars using the methods ngon() and star(), respectively. These supports the fill method, but not interpolation. Additionally, you can create mathematical rose using the rose() method.
 
 ## Results
-[Alt text](https://github.com/AryWilson/canvas-drawer/tree/main/images/honey3.png?raw=true)
-[Alt text](https://github.com/AryWilson/canvas-drawer/tree/main/images/save.png?raw=true)
-[Alt text](https://github.com/AryWilson/canvas-drawer/tree/main/images/stars1.png?raw=true)
+![Alt text](/images/honey3.png?raw=true)
+![Alt text](/images/save.png?raw=true)
+![Alt text](/images/stars.png?raw=true)
