@@ -2,7 +2,7 @@
 
 Implements a simple drawing api
 
-TODO: Add a representative image for your project here
+[Alt text](images/triangle.png?raw=true)
 
 ## How to build
 
@@ -45,8 +45,9 @@ canvas-drawer/build $ ../bin/draw_art
 
 ## Supported primitives
 
-TODO: Document the custom primitives supported by your canvas class
+This project supports UNDEFINED, POINTS, LINES, and TRIANGLES as primitives accepted by the begin method for drawing by indicating each vertex.
 
 ## Results
-
-TODO: Show artworks using your class
+[Alt text](images/honey3.png?raw=true)
+[Alt text](images/save.png?raw=true)
+[Alt text](images/stars1.png?raw=true)

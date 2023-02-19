@@ -250,6 +250,7 @@ void Canvas::circle(int cx, int cy, int r){
    ngon(cx,cy,r,r);
 }
 void Canvas::rose(int cx, int cy, int r, int n, int d){
+   if (n <= 0 || d <= 0){return;}
    float m = max(n,d);
    float delta = 1/((m)*(4)*acos(0.0f));
    float k = n/((float) d);
@@ -260,7 +261,22 @@ void Canvas::rose(int cx, int cy, int r, int n, int d){
    }
 }
 
+void Canvas::roseLine(int cx, int cy, int r, int n, int d){
+   float m = max(n,d);
+   float delta = 1/((m)*(4)*acos(0.0f));
+   float k = n/((float) d);
+   float endpt = ((4)*acos(0.0f))/n;
+   for(float theta = 0; theta <= (m)*(4)*acos(0.0f); theta += delta){
+      struct Point a = Point{cx+(int) floor(r*cos(k*theta)*cos(theta)),cy+(int) floor(r*cos(k*theta)*sin(theta)),current_col};
+      struct Point b = Point{cx+(int) floor(r*cos(k*(theta + endpt))*cos(theta + endpt)),cy+(int) floor(r*cos(k*(theta + endpt))*sin(theta + endpt)),current_col};
+      drawline(a,b);
+   }
+}
+
 void Canvas::ngon(int cx, int cy, int r, int sides){
+   if (sides<=0){
+      return;
+   }
    float delta = ((2)*acos(0.0f))/sides;
    int _cx = cx - r;
    int _r = 2*r;
