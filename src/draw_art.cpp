@@ -5,28 +5,29 @@ using namespace agl;
 
 int main(int argc, char** argv)
 {
-   Canvas drawer(640, 380);
-   drawer.background(0,0,0);
 
+   Canvas drawer(640, 380);
+
+   drawer.background(0,0,0);
    drawer.begin(TRIANGLES);
-   drawer.color(25, 0, 25);
+   drawer.color(0, 0, 0);
    drawer.vertex(640, 380);
 
    drawer.color(0, 0, 40);
    drawer.vertex(0, 380);
    
-   drawer.color(0,0,0);
+   drawer.color(25,0,25);
    drawer.vertex(640, 0);
    drawer.end();
 
    drawer.begin(TRIANGLES);
-   drawer.color(0, 0, 0);
+   drawer.color(0, 0, 40);
    drawer.vertex(0, 380);
 
    drawer.color(25, 0, 25);
    drawer.vertex(640, 0);
 
-   drawer.color(0, 0, 40);
+   drawer.color(0, 0, 0);
    drawer.vertex(0, 0);
    drawer.end();
 

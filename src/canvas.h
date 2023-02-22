@@ -64,6 +64,7 @@ namespace agl
       //internal function for drawing lines with slops within [-pi/2,-pi/4] or [pi/4,pi/2]
       void drawline_high (struct Point a, struct Point b);
       // draws triangles from 3 given points, supports interpilation and fill boolean 
+      int implicit(int x, int y, Point a, Point b);
       void triangle(struct Point a, struct Point b, struct Point c);
       // draws a solid color star at indicated x,y coords with given size, which is taken as the length of an edge in pixels. The angle of the star is random.
       void star(int cx, int cy, int size);  

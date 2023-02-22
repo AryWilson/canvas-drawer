@@ -43,7 +43,6 @@ void Canvas::end()
 
 void Canvas::vertex(int x, int y)
 {
-   // sepaate for triangle and line?
    // just add to vetex struct, (delete struct when appropriate num of points?)
    vertices.push_back(Point{x,y,current_col});
    if (vertices.size() == 1 && current_type == POINTS){
@@ -61,6 +60,7 @@ void Canvas::vertex(int x, int y)
       vertices.pop_back(); 
       
       if ((b.x - a.x) * (c.y - a.y) - (c.x - a.x) * (b.y - a.y) == -1){
+         // std::cout << "swap" << std::endl;
          struct Point temp = b;
          b = c;
          c = temp;
@@ -189,36 +189,25 @@ void Canvas::drawline_high(struct Point a, struct Point b) {
       } 
    }
 }
-int _max(int a, int b, int c){
-   if (a >= b && a >= c){return a;}
-   if (b >= a && b >= c){return b;}
-   if (c >= b && c >= a){return c;}
-   return a;
-
-}
-
-int _min(int a, int b, int c){
-   if (a <= b && a <= c){return a;}
-   if (b <= a && b <= c){return b;}
-   if (c <= b && c <= a){return c;}
-   return a;
-
+int Canvas::implicit(int x, int y, struct Point a, struct Point b){
+   return (b.x-a.x)*(y-a.y) - (b.y-a.y)*(x-a.x);
 }
 void Canvas::triangle(struct Point a, struct Point b, struct Point c){
-   int right = _max(a.x, b.x, c.x);
-   int left = _min(a.x, b.x, c.x);
-   int up = _max(a.y, b.y, c.y);
-   int down = _min(a.y, b.y, c.y);
+   int right = max(a.x, max(b.x, c.x)) + 1;
+   int left = min(a.x, min(b.x, c.x)) - 1;
+   int up = max(a.y, max(b.y, c.y)) + 1;
+   int down = min(a.y, min(b.y, c.y)) - 1;
 
-   float fa = (b.y - a.y)*(c.x - a.x) - (b.x - a.x)*(c.y - a.y);
-   float fb = (c.y - a.y)*(b.x - a.x) - (c.x - a.x)*(b.y - a.y);
+   float fa = implicit(a.x, a.y, b,c);
+   float fb = implicit(b.x, b.y, c,a);;
+   float fc = implicit(c.x, c.y, a,b);;
    // f(x,y) = (a.y - b.y)*x + (b.x - a.x)*y + (a.x)*(b.y) - (b.x)*(a.y) = 0
-   for(int i = left; i<=right; i++){
-      for(int j = down; j<=up; j++){
+   for(int j = down; j<=up; j++){
+      for(int i = left; i<=right; i++){
          // ((b.y - a.y)*(i - a.x) - (b.x - a.x)*(j - a.y))/fa;
-         float alpha = ((b.y - a.y)*(i - a.x) - (b.x - a.x)*(j - a.y))/fa;
-         float beta = ((c.y - a.y)*(i - a.x) - (c.x - a.x)*(j - a.y))/fb;
-         float gamma = 1.0f - alpha - beta;
+         float alpha = implicit(i,j,b,c)/fa;
+         float beta = implicit(i,j,c,a)/fb;
+         float gamma = implicit(i,j,a,b)/fc;
          if(alpha >= 0 && beta >= 0 && gamma >= 0){
             unsigned char r = (alpha)*(a.col.r) + (beta)*(b.col.r) + (gamma)*(c.col.r);
             unsigned char g = (alpha)*(a.col.g) + (beta)*(b.col.g) + (gamma)*(c.col.g);
